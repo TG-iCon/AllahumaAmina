@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Gallery & Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        h1, h2, h3, h4 {
+            color: #222;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .gallery img {
+            width: 30%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact, .info {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        hr {
+            border: 1px solid #ccc;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #ff6363;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff4747;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery img {
+                width: 45%;
+            }
+
+            form {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery img {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>TG PHOTOS</h1>
+        <h2>Discover the Beauty of Nature</h2>
+        <hr>
+
+        <h3>Image Gallery</h3>
+        <div class="gallery">
+            <img src="https://source.unsplash.com/random/200x200?nature1" alt="Nature 1">
+            <img src="https://source.unsplash.com/random/200x200?nature2" alt="Nature 2">
+            <img src="https://source.unsplash.com/random/200x200?nature3" alt="Nature 3">
+            <img src="https://source.unsplash.com/random/200x200?nature4" alt="Nature 4">
+        </div>
+
+        <hr>
+
+        <div class="info">
+            <h3>Our Services</h3>
+            <p>Sisi tunahusika na upigaji wa picha na video production kwa bei nafuu sana. Wasiliana nasi kwa huduma bora.
+           </br>Karibu tukuhudumie kwa huduma bora na zilizotukuka
+           </br>WASILIANA NASI KUPITIA
+           </br>Facebook: @Tg_oPics
+           </br>Tiktok: @Baraka_Photod
+           </br>Instagram: @Your_FavPics</p>
+        </div>
+
+        <hr>
+
+        <h3>User Registration</h3>
+        <form id="registrationForm">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" required>
+            <span class="error" id="nameError"></span>
+
+            <label for="regNumber">Registration Number:</label>
+            <input type="text" id="regNumber" required>
+            <span class="error" id="regError"></span>
+
+            <label for="sex">Sex:</label>
+            <select id="sex" required>
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <span class="error" id="emailError"></span>
+
+            <label for="region">Region:</label>
+            <select id="region" required>
+                <option value="">Select Region</option>
+                <option value="region1">Region 1</option>
+                <option value="region2">Region 2</option>
+            </select>
+
+            <label for="district">District:</label>
+            <select id="district" required>
+                <option value="">Select District</option>
+            </select>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <span class="error" id="passwordError"></span>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" required>
+            <span class="error" id="confirmPasswordError"></span>
+
+            <button type="submit">Register</button>
+            <span class="success" id="successMessage"></span>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#region').change(function () {
+                var region = $(this).val();
+                $('#district').empty().append('<option value="">Select District</option>');
+                if (region) {
+                    var districts = (region === 'region1') ? ['District 1A', 'District 1B'] : ['District 2A', 'District 2B'];
+                    $.each(districts, function (index, value) {
+                        $('#district').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                }
+            });
+
+            $('#registrationForm').submit(function (event) {
+                event.preventDefault();
+                $('.error').text('');
+                let isValid = true;
+
+                if (!$('#fullName').val().match(/^[a-zA-Z\s]+$/)) {
+                    $('#nameError').text('Invalid name.');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    $('#successMessage').text('Registration Successful!');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
